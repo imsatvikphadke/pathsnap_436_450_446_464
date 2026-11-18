@@ -43,7 +43,7 @@ def make_route_map(track, nodes, arcs, routes=None, show_network=True, buffer_de
         net.add_to(m)
 
     step = int(np.ceil(len(track) / MAX_GPS_MARKERS)) if len(track) > MAX_GPS_MARKERS else 1
-    gps_name = f"GPS observations ({len(track)})" + (f" - every {step}th shown" if step > 1 else "")
+    gps_name = f"GPS observations ({len(track)})" + (f" - 1 in {step} shown" if step > 1 else "")
     gps = folium.FeatureGroup(name=gps_name)
     for lat, lon, t in track[["lat", "lon", "t"]].iloc[::step].itertuples(index=False):
         folium.CircleMarker([lat, lon], radius=2, color="#1f77b4", fill=True, fill_opacity=0.8, weight=0,
