@@ -1,0 +1,13 @@
+sampler: TPESampler(seed=42)  objective: mean 3-fold GroupKFold Top-1 on train
+trials: 30 (13 pruned)  wall time: 368.5 s
+best Top-1: 0.8482  (trial 17)
+best params: {
+  "num_leaves": 28,
+  "learning_rate": 0.05274805083854121,
+  "n_estimators": 220,
+  "min_child_samples": 58,
+  "subsample": 0.5879232886699178,
+  "colsample_bytree": 0.6104905900823989,
+  "reg_lambda": 0.5788652740511957,
+  "scale_pos_weight": 3.1095894649003024
+}

@@ -1,0 +1,3 @@
+Model,CV macro-F1,CV Top-1,CV log loss,Test Top-1,Test macro-F1,Test log loss,Inference ms/trip
+Untuned LightGBM (defaults from comparison),0.9032,0.8458,0.133,0.873,0.9183,0.1157,41.7421
+Tuned LightGBM (Optuna TPE),0.8965,0.8482,0.1529,0.868,0.906,0.1423,27.1356
