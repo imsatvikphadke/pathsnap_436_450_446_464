@@ -1,0 +1,12 @@
+# raw data is NOT committed (put it in data/raw/ — see README)
+data/raw/
+data/eval/*
+!data/eval/.gitkeep
+data/processed/
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+.DS_Store
+.env
