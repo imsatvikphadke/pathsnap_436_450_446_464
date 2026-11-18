@@ -1,0 +1,16 @@
+MEAN over 10 student_test trips: Top-1 0.884 -> 0.9568, continuity 0.7692 -> 0.8933
+pooled (point-weighted) Top-1: 0.8680 -> 0.9580
+Trips where HMM helped least:
+  00000000: 0.9417 -> 0.9525 (gain +0.0108), miss rate 0.002, continuity 0.929
+  00000052: 0.958 -> 0.9962 (gain +0.0382), miss rate 0.0, continuity 0.8765
+  00000065: 0.8685 -> 0.9076 (gain +0.0391), miss rate 0.0013, continuity 0.8889
+Why HMM did not help (much) there:
+  - 00000000 / 00000052: the classifier was already at 94-96%, so there was little left to fix; the remaining errors
+    are mostly at junctions where the car is between two connected arcs and both are geometrically plausible.
+  - 00000065: lowest HMM Top-1; errors cluster on short arcs around junctions / parallel carriageways where
+    both the emission and the road-distance transition are similar for the two options.
+Why HMM continuity is ~0.89 and not 1.0: the metric counts only DIRECTLY adjacent arc changes. At 1 Hz a car can
+  pass a short arc (< ~15 m) between two GPS points, so consecutive predictions are connected through that arc
+  (the transition used the shortest path) but are not adjacent themselves. Gaps restart the chain, also breaking adjacency.
+Note: decoder parameters were tuned on 20 train trips + these 10 student_test trips (allowed for the decoder),
+  so these student_test numbers are slightly optimistic; evaluator trips were never used.
