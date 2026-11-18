@@ -40,7 +40,7 @@ The system architecture decouples feature extraction, discriminative candidate s
                 │
                 ▼ (Samyak v1 / Satvik v2)
        [Spatial Candidate Generation]
-       • KD-Tree spatial index over arc midpoints/segments (Radius R=50m, Top-K=10)
+       • KD-Tree spatial index over arc midpoints/segments (Radius R=50m, Top-K=8)
        • Feature extraction (distance, heading difference, speed, network degree)
                 │
                 ▼ (Sanyam)
