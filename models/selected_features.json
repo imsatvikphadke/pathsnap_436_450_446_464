@@ -1,0 +1,22 @@
+{
+  "features": [
+    "dist_m",
+    "dist_rank",
+    "dist_gap",
+    "n_cands",
+    "proj_u",
+    "heading_diff",
+    "speed_mps",
+    "arc_len_m",
+    "dist_prev",
+    "dist_next",
+    "in_deg",
+    "out_deg",
+    "two_way"
+  ],
+  "dropped": [
+    "is_gap"
+  ],
+  "method": "correlation (|r| > 0.95) + mutual information + LightGBM gain importance (train only)",
+  "train_candidate_rows": 1139479
+}

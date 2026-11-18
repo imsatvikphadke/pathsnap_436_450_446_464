@@ -1,0 +1,15 @@
+feature,mutual_info,lgb_gain_importance,max_abs_corr,kept,drop_reason
+dist_m,0.10598,264622.29,0.8797,True,None
+dist_rank,0.14839,216951.26,0.6134,True,None
+dist_gap,0.1483,1671714.9,0.6134,True,None
+n_cands,0.04488,35125.59,0.4638,True,None
+proj_u,0.1344,221363.76,0.0194,True,None
+heading_diff,0.087,1163663.71,0.0748,True,None
+speed_mps,0.0,76721.49,0.2556,True,None
+is_gap,0.0,236.83,0.0629,False,low MI and low importance
+arc_len_m,0.09507,165902.07,0.4275,True,None
+dist_prev,0.08697,70340.35,0.8797,True,None
+dist_next,0.08624,86880.78,0.8779,True,None
+in_deg,0.01383,11218.07,0.6041,True,None
+out_deg,0.01343,22221.5,0.5971,True,None
+two_way,0.03248,48590.36,0.6041,True,None
