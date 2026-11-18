@@ -1,0 +1,12 @@
+{
+  "partition": "train",
+  "trips": 80,
+  "points": 208417,
+  "candidate_rows": 1139479,
+  "avg_cands_per_point": 5.47,
+  "labelled_share": 0.8884,
+  "median_label_dist_m": 4.92,
+  "positive_rate": 0.1611,
+  "candidate_miss_rate": 0.0085,
+  "seconds": 7.1
+}
