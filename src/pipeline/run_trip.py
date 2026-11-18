@@ -50,13 +50,11 @@ def _per_point_candidates(cands, prob, n):
     return out
 
 
-def run_trip(trip_dir, art, cfg=None):
-    """Predict one arc per GPS point, classifier-only and with HMM. Reads .track/.nodes/.arcs only."""
+def prepare_trip(trip_dir, art):
+    """Everything that does not depend on the decoder config: clean, candidates, features, classifier."""
     trip_dir = Path(trip_dir)
-    cfg = cfg or art["cfg"]
     tm = {}
     t0 = time.perf_counter()
-
     track, nodes, arcs = load_trip_arcs_nodes(trip_dir)
     pts = clean_track(track)
     nx_, ny_ = to_xy(nodes.lon.to_numpy(), nodes.lat.to_numpy(), *pts.attrs["origin"])
@@ -67,24 +65,39 @@ def run_trip(trip_dir, art, cfg=None):
     t1 = time.perf_counter()
     prob = predict_proba(art["model"], cands, art["meta"])
     tm["classifier_ms"] = (time.perf_counter() - t1) * 1000
-
     per_point = _per_point_candidates(cands, prob, len(pts))
+    return {"trip_dir": trip_dir, "pts": pts, "arcs": arcs, "xy": (px, py, nx_, ny_),
+            "per_point": per_point, "graph": None, "tm": tm, "t0": t0}
+
+
+def decode(prep, cfg):
+    """Viterbi on a prepared trip; the road graph is built once and cached in prep."""
+    px, py, nx_, ny_ = prep["xy"]
+    if prep["graph"] is None:
+        prep["graph"] = RoadGraph(prep["arcs"], nx_, ny_, px, py, cfg.get("crop_m", 1000.0))
+    return viterbi_decode(px, py, prep["pts"].t.to_numpy(), prep["per_point"], prep["graph"], cfg).tolist()
+
+
+def run_trip(trip_dir, art, cfg=None):
+    """Predict one arc per GPS point, classifier-only and with HMM. Reads .track/.nodes/.arcs only."""
+    cfg = cfg or art["cfg"]
+    prep = prepare_trip(trip_dir, art)
+    per_point = prep["per_point"]
     pred_clf = [int(c["arcs"][c["prob"].argmax()]) if len(c["arcs"]) else -1 for c in per_point]
 
     t2 = time.perf_counter()
-    graph = RoadGraph(arcs, nx_, ny_, px, py, cfg.get("crop_m", 1000.0))
-    pred_hmm = viterbi_decode(px, py, pts.t.to_numpy(), per_point, graph, cfg).tolist()
-    tm["hmm_ms"] = (time.perf_counter() - t2) * 1000
+    pred_hmm = decode(prep, cfg)
+    prep["tm"]["hmm_ms"] = (time.perf_counter() - t2) * 1000
 
     return {
-        "trip_id": trip_dir.name,
-        "points": pts[["point_idx", "lon", "lat", "t"]].reset_index(drop=True),
+        "trip_id": prep["trip_dir"].name,
+        "points": prep["pts"][["point_idx", "lon", "lat", "t"]].reset_index(drop=True),
         "pred_classifier": pred_clf,
         "pred_hmm": pred_hmm,
         "cand_sets": [c["arcs"].tolist() for c in per_point],
-        "timings_ms": {k: round(v, 1) for k, v in tm.items()},
-        "inference_ms": round((time.perf_counter() - t0) * 1000, 1),
-        "_xy": (px, py, nx_, ny_),  # reused by evaluate_trip, never sent to the UI
+        "timings_ms": {k: round(v, 1) for k, v in prep["tm"].items()},
+        "inference_ms": round((time.perf_counter() - prep["t0"]) * 1000, 1),
+        "_xy": prep["xy"],  # reused by evaluate_trip, never sent to the UI
     }
 
 

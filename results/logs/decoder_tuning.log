@@ -1,0 +1,9 @@
+TPE seed 42, 30 trials, wall 126.2 s
+default cfg Top-1 0.9524 -> best 0.9560 (trial 10)
+best params {
+  "beta": 4.948467406075792,
+  "penalty": 48.765401884797214,
+  "lam": 1.0911785268728769,
+  "uturn_penalty": 19.191123811319336,
+  "gap_restart_s": 26.21568057361647
+}
