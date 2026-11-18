@@ -1,0 +1,28 @@
+13 features, train rows 1,139,479, student_test rows 113,710, 3-fold GroupKFold
+  LogReg       fold 0: top1=0.8164 f1=0.8279 fit=0.8s
+  LogReg       fold 1: top1=0.8708 f1=0.8463 fit=0.8s
+  LogReg       fold 2: top1=0.8295 f1=0.8089 fit=0.6s
+LogReg: test top1=0.8500
+  GaussianNB   fold 0: top1=0.7981 f1=0.7585 fit=0.1s
+  GaussianNB   fold 1: top1=0.8469 f1=0.7719 fit=0.1s
+  GaussianNB   fold 2: top1=0.8200 f1=0.7384 fit=0.1s
+GaussianNB: test top1=0.8272
+  KNN          fold 0: top1=0.8107 f1=0.8804 fit=0.0s
+  KNN          fold 1: top1=0.8663 f1=0.9099 fit=0.0s
+  KNN          fold 2: top1=0.8198 f1=0.8765 fit=0.0s
+KNN: test top1=0.8480
+  RandomForest fold 0: top1=0.8252 f1=0.8905 fit=8.4s
+  RandomForest fold 1: top1=0.8771 f1=0.9255 fit=9.1s
+  RandomForest fold 2: top1=0.8352 f1=0.8924 fit=8.7s
+RandomForest: test top1=0.8640
+  LightGBM     fold 0: top1=0.8250 f1=0.8907 fit=4.5s
+  LightGBM     fold 1: top1=0.8822 f1=0.9277 fit=4.2s
+  LightGBM     fold 2: top1=0.8302 f1=0.8914 fit=4.3s
+LightGBM: test top1=0.8730
+  MLP          fold 0: top1=0.8209 f1=0.8840 fit=12.8s
+  MLP          fold 1: top1=0.8768 f1=0.9192 fit=15.5s
+  MLP          fold 2: top1=0.8235 f1=0.8823 fit=15.5s
+MLP: test top1=0.8607
+selected: RandomForest
+/Users/samyaksanklecha/work/pathsnap-team5/.venv/lib/python3.12/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)

@@ -1,0 +1,7 @@
+Model,Algorithm family,Key configuration,CV macro-F1,CV macro-F1 std,CV Top-1,CV Top-1 std,CV log loss,Train-fold Top-1,Test Top-1,Test macro-F1,Test precision,Test recall,Test log loss,Route continuity,Fit time (s),Inference ms/trip,Train rows used
+LogReg,Linear,"L2, C=1, class_weight=balanced, scaled",0.8277,0.0187,0.8389,0.0284,0.2588,0.861,0.85,0.8326,0.7976,0.8999,0.255,0.7578,0.9767,1.7128,1139479
+GaussianNB,Probabilistic,default var_smoothing=1e-9,0.7563,0.0168,0.8217,0.0245,0.6889,0.8301,0.8272,0.755,0.7299,0.861,0.7408,0.7225,0.1569,1.956,1139479
+KNN,Instance-based,"k=25, distance-weighted, scaled, fit on 60k rows",0.8889,0.0183,0.8323,0.0298,0.2171,0.8783,0.848,0.9029,0.9084,0.8976,0.1872,0.7342,0.0289,518.9778,60000
+RandomForest,Bagging ensemble,"100 trees, max_depth=16, min_leaf=5, fit on 300k rows",0.9028,0.0197,0.8458,0.0275,0.1344,0.8906,0.864,0.9142,0.9245,0.9047,0.1214,0.7652,8.6242,15.616,300000
+LightGBM,Boosting,"300 trees, lr=0.05, 63 leaves (untuned)",0.9032,0.0212,0.8458,0.0316,0.133,0.9068,0.873,0.9183,0.9233,0.9135,0.1157,0.7751,6.0424,37.3761,1139479
+MLP,Neural network,"64-32 ReLU, adam, early stopping, fit on 300k rows",0.8952,0.0209,0.8404,0.0315,0.1487,0.8775,0.8607,0.9124,0.917,0.9079,0.1268,0.7604,19.4654,4.9519,300000

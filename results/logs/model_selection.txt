@@ -1,0 +1,12 @@
+Selection rule: highest CV Top-1 (GroupKFold by trip, train only). Models within 0.005 of the best are a tie -> lower CV log loss, then lower fold std, then faster inference.
+
+       Model  CV Top-1  CV Top-1 std  CV macro-F1  CV log loss  Inference ms/trip
+RandomForest    0.8458        0.0275       0.9028       0.1344            15.6160
+    LightGBM    0.8458        0.0316       0.9032       0.1330            37.3761
+         MLP    0.8404        0.0315       0.8952       0.1487             4.9519
+      LogReg    0.8389        0.0284       0.8277       0.2588             1.7128
+         KNN    0.8323        0.0298       0.8889       0.2171           518.9778
+  GaussianNB    0.8217        0.0245       0.7563       0.6889             1.9560
+
+Tied on CV Top-1: RandomForest, LightGBM
+Selected model: LightGBM
