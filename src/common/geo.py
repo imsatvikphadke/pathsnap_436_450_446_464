@@ -30,3 +30,14 @@ def angle_diff(a, b):
     """Smallest absolute difference between two bearings, 0..180."""
     d = np.abs(np.asarray(a) - np.asarray(b)) % 360
     return np.minimum(d, 360 - d)
+
+
+def point_to_segment(px, py, ax, ay, bx, by):
+    """Distance from point P to segment A->B (all in metres, numpy-broadcastable).
+
+    Returns (dist, u) where u in [0, 1] is how far along the segment the closest point is.
+    """
+    vx, vy = bx - ax, by - ay
+    l2 = np.maximum(vx * vx + vy * vy, 1e-9)
+    u = np.clip(((px - ax) * vx + (py - ay) * vy) / l2, 0.0, 1.0)
+    return np.hypot(px - (ax + u * vx), py - (ay + u * vy)), u
