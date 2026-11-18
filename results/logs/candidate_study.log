@@ -1,0 +1,23 @@
+Candidate generator sensitivity analysis - train partition, 80 trips, 185159 labelled points
+  R  K  miss_rate  mean_set_size  seconds  misses  labelled  cand_rows
+ 20  4     0.0334         2.9396  10.9323    6190    185159     612671
+ 20  8     0.0182         3.6332  10.7632    3364    185159     757223
+ 20 12     0.0165         3.8334  10.0583    3046    185159     798937
+ 30  4     0.0299         3.2373  10.7030    5527    185159     674707
+ 30  8     0.0116         4.4763  10.8802    2139    185159     932934
+ 30 12     0.0092         5.0152  11.2859    1695    185159    1045257
+ 50  4     0.0282         3.5083  11.7104    5217    185159     731193
+ 50  8     0.0085         5.4673  11.6137    1571    185159    1139479
+ 50 12     0.0057         6.7059  11.5955    1049    185159    1397619
+ 75  4     0.0282         3.6503  12.8896    5217    185159     760783
+ 75  8     0.0085         6.1558  13.2290    1571    185159    1282965
+ 75 12     0.0057         8.0403  12.7806    1049    185159    1675743
+100  4     0.0282         3.6999  15.6994    5217    185159     771124
+100  8     0.0085         6.5413  16.3379    1571    185159    1363317
+100 12     0.0057         8.8855  16.4948    1049    185159    1851890
+
+Chosen R=50 m, K=8: miss rate 0.85%, 5.47 candidates per point.
+R=20, K=8 is smaller (3.63 per point) but misses 1.82%.
+R=100, K=12 misses 0.57% but needs 8.89 per point (1.6x more rows for the classifier and HMM).
+Above R=50 the miss rate does not change: a point only gets a label if it is within 50 m of its arc (labels.MAX_LABEL_DIST), so beyond 50 m only K matters. Remaining misses at R=50 come from the K cap.
+K=12 at R=50 cuts misses to 0.57% for 1.23x the rows - a possible v2 change if the classifier handles larger sets well.
