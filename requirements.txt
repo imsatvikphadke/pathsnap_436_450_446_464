@@ -16,3 +16,4 @@ uvicorn
 requests
 streamlit
 jupyter
+reportlab
